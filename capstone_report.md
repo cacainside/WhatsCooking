@@ -71,7 +71,7 @@ eggs = large eggs [4]
 extra-virgin olive oil = olive oil [5]
 garlic = garlic cloves
 
-And then stemming [2] (potatoes and potato should be the same ingredients), also I do capitalize. And one hot encoding.
+And then stemming (potatoes and potato should be the same ingredients), also I do capitalize. And one hot encoding.
 
 ### Implementation
 
@@ -97,39 +97,24 @@ _(approx. 2-3 pages)_
 
 ### Model Evaluation and Validation
 
-- _Is the final model reasonable and aligning with solution expectations? Are the final parameters of the model appropriate?_
-- _Has the final model been tested with various inputs to evaluate whether the model generalizes well to unseen data?_
-- _Is the model robust enough for the problem? Do small perturbations (changes) in training data or the input space greatly affect the results?_
-- _Can results found from the model be trusted?_
+The result is 0.961491341975562 accuracy, I thinkt the final model is reasonable and aligning with solution expectations. It is tested by spliting data which is not same as training data, so I think its result can be trusted.
 
 ### Justification
-In this section, your model’s final solution and its results should be compared to the benchmark you established earlier in the project using some type of statistical analysis. You should also justify whether these results and the solution are significant enough to have solved the problem posed in the project. Questions to ask yourself when writing this section:
-- _Are the final results found stronger than the benchmark result reported earlier?_
-- _Have you thoroughly analyzed and discussed the final solution?_
-- _Is the final solution significant enough to have solved the problem?_
+
+- The final results(0.961491341975562 ) is stronger than the benchmark result(SVM,0.9611). And I think the final solution is significant enough to have solved the problem for categorizing ingredients into cuisine type.
 
 
 ## V. Conclusion
 _(approx. 1-2 pages)_
 
 ### Free-Form Visualization
-In this section, you will need to provide some form of visualization that emphasizes an important quality about the project. It is much more free-form, but should reasonably support a significant result or characteristic about the problem that you want to discuss. Questions to ask yourself when writing this section:
-- _Have you visualized a relevant or important quality about the problem, dataset, input data, or results?_
-- _Is the visualization thoroughly analyzed and discussed?_
-- _If a plot is provided, are the axes, title, and datum clearly defined?_
+Test result is: 0.961491341975562.
 
 ### Reflection
-In this section, you will summarize the entire end-to-end problem solution and discuss one or two particular aspects of the project you found interesting or difficult. You are expected to reflect on the project as a whole to show that you have a firm understanding of the entire process employed in your work. Questions to ask yourself when writing this section:
-- _Have you thoroughly summarized the entire process you used for this project?_
-- _Were there any interesting aspects of the project?_
-- _Were there any difficult aspects of the project?_
-- _Does the final model and solution fit your expectations for the problem, and should it be used in a general setting to solve these types of problems?_
+In this project, I first explore the whole data, and make sure there's no missing data. Then in Data pre-processing part, I combine same ingredients with different wording into same ingredient with same wording, which need some domain knowledge, and I don't think many programmer consider about this part. Also, I do stemming, capitalize, One Hot encoding. And I trained the data by XGBoost, and for its hyperparater, using grid search for better parameter pair. Finally,test my model after training it. The most interesting part is to combine same ingredients, because I google top 10 ingredient of each cuisine, and read many chief blog to gain some domain knowlege of food. And I think the final model and solution fit your expectations for the problem, and it can be used in a general setting to solve predicting cuisine from its ingredients.
 
 ### Improvement
-In this section, you will need to provide discussion as to how one aspect of the implementation you designed could be improved. As an example, consider ways your implementation can be made more general, and what would need to be modified. You do not need to make this improvement, but the potential solutions resulting from these changes are considered and compared/contrasted to your current solution. Questions to ask yourself when writing this section:
-- _Are there further improvements that could be made on the algorithms or techniques you used in this project?_
-- _Were there algorithms or techniques you researched that you did not know how to implement, but would consider using if you knew how?_
-- _If you used your final solution as the new benchmark, do you think an even better solution exists?_
+I noticed that there's many ingredients include brand name, such as KRAFT cheese, and I think it can improved by trimming and ignoring brand name while preprocessing. And if I used my final solution as the new benchmark, I think there's some even better solution exists with better data preprocessing.
 
 -----------
 [1] https://www.thekitchn.com/whats-the-difference-between-spring-onions-scallions-and-green-onions-word-of-mouth-217111 
@@ -138,12 +123,3 @@ In this section, you will need to provide discussion as to how one aspect of the
 [4] https://www.thespruceeats.com/egg-size-conversions-1328750
 [5] https://www.thekitchn.com/whats-the-difference-between-olive-oil-and-extra-virgin-olive-oil-word-of-mouth-218767
 
-**Before submitting, ask yourself. . .**
-
-- Does the project report you’ve written follow a well-organized structure similar to that of the project template?
-- Is each section (particularly **Analysis** and **Methodology**) written in a clear, concise and specific fashion? Are there any ambiguous terms or phrases that need clarification?
-- Would the intended audience of your project be able to understand your analysis, methods, and results?
-- Have you properly proof-read your project report to assure there are minimal grammatical and spelling mistakes?
-- Are all the resources used for this project correctly cited and referenced?
-- Is the code that implements your solution easily readable and properly commented?
-- Does the code execute without error and produce results similar to those reported?
