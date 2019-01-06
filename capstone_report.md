@@ -50,53 +50,53 @@ The input features include cuisine, id and ingredients. Let's discuss them below
 
 
 ### Exploratory Visualization
-![Alt text](/path/to/img.jpg "Optional title")
-![Alt text](https://github.com/cacainside/WhatsCooking/blob/master/2019-01-06%2021.59.22.png "Optional title")
-https://github.com/cacainside/WhatsCooking/blob/master/2019-01-06%2021.59.22.png
-In this section, you will need to provide some form of visualization that summarizes or extracts a relevant characteristic or feature about the data. The visualization should adequately support the data being used. Discuss why this visualization was chosen and how it is relevant. Questions to ask yourself when writing this section:
-- _Have you visualized a relevant characteristic or feature about the dataset or input data?_
-- _Is the visualization thoroughly analyzed and discussed?_
-- _If a plot is provided, are the axes, title, and datum clearly defined?_
+As below, we can see each cuisine count from dataset. The highest frequncy cuisine in our dataset is italian, which includes 7838 cuisine. And we need to do one hot encoding to make cuisine appear in 0 and 1 in each type.
+![Alt text](https://github.com/cacainside/WhatsCooking/blob/master/2019-01-06%2021.59.22.png "Cuisine ")
+
 
 ### Algorithms and Techniques
-In this section, you will need to discuss the algorithms and techniques you intend to use for solving the problem. You should justify the use of each one based on the characteristics of the problem and the problem domain. Questions to ask yourself when writing this section:
-- _Are the algorithms you will use, including any default variables/parameters in the project clearly defined?_
-- _Are the techniques to be used thoroughly discussed and justified?_
-- _Is it made clear how the input data or datasets will be handled by the algorithms and techniques chosen?_
+I am going to use XGBoost as my algorithm, I will input ingredients as data, and cuisine as target. XGBoost has hyperparameterm and I will use grid search to pick a better one. And all the input data need to transfer by one hot encoding.
 
 ### Benchmark
-In this section, you will need to provide a clearly defined benchmark result or threshold for comparing across performances obtained by your solution. The reasoning behind the benchmark (in the case where it is not an established result) should be discussed. Questions to ask yourself when writing this section:
-- _Has some result or value been provided that acts as a benchmark for measuring performance?_
-- _Is it clear how this result or value was obtained (whether by data or by hypothesis)?_
-
+SVM is my benchmark, I use my preprocess data and run SVM, with parameter C: 0.5, and tolerance :1e-3. And I got 0.9611 accuracy from test data, which is very high.
 
 ## III. Methodology
 _(approx. 3-5 pages)_
 
 ### Data Preprocessing
-In this section, all of your preprocessing steps will need to be clearly documented, if any were necessary. From the previous section, any of the abnormalities or characteristics that you identified about the dataset will be addressed and corrected here. Questions to ask yourself when writing this section:
-- _If the algorithms chosen require preprocessing steps like feature selection or feature transformations, have they been properly documented?_
-- _Based on the **Data Exploration** section, if there were abnormalities or characteristics that needed to be addressed, have they been properly corrected?_
-- _If no preprocessing is needed, has it been made clear why?_
+In data preprocessing part, I first check top 10 ingredients in each cuisine, and we can see many similar ingredients, based on my google result, I list this can be seens as the same, and I will assign it as same while data preprocessing
+scallions = Green Onions [1]
+black pepper = pepper [2]
+eggs = large eggs [4]
+extra-virgin olive oil = olive oil [5]
+garlic = garlic cloves
+
+And then stemming [2] (potatoes and potato should be the same ingredients), also I do capitalize. And one hot encoding.
 
 ### Implementation
-In this section, the process for which metrics, algorithms, and techniques that you implemented for the given data will need to be clearly documented. It should be abundantly clear how the implementation was carried out, and discussion should be made regarding any complications that occurred during this process. Questions to ask yourself when writing this section:
-- _Is it made clear how the algorithms and techniques were implemented with the given datasets or input data?_
-- _Were there any complications with the original metrics or techniques that required changing prior to acquiring a solution?_
-- _Was there any part of the coding process (e.g., writing complicated functions) that should be documented?_
+
+- Data exploration: Explore the whole data, and make sure there's no missing data.
+- Data pre-processing: 
+  - combine into same ingredient (As above mention)
+  - stemming (porterStemmer)
+  - capitalize
+  - One Hot encoding (CountVectorizer, LabelEncoder, label_binarize)
+- Training:XGBoost, and using grid search (learning_rate:  0.01, 0.1, max_depth: 3, 6)
+- Testing: I am going to test my model from previous training result.
+
+There's no any complications with the original metrics or techniques that required changing prior to acquiring a solution.
+
+
 
 ### Refinement
-In this section, you will need to discuss the process of improvement you made upon the algorithms and techniques you used in your implementation. For example, adjusting parameters for certain models to acquire improved solutions would fall under the refinement category. Your initial and final solutions should be reported, as well as any significant intermediate results as necessary. Questions to ask yourself when writing this section:
-- _Has an initial solution been found and clearly reported?_
-- _Is the process of improvement clearly documented, such as what techniques were used?_
-- _Are intermediate and final solutions clearly reported as the process is improved?_
+These no refinement in this report, initial solution and final solution is the same.
 
 
 ## IV. Results
 _(approx. 2-3 pages)_
 
 ### Model Evaluation and Validation
-In this section, the final model and any supporting qualities should be evaluated in detail. It should be clear how the final model was derived and why this model was chosen. In addition, some type of analysis should be used to validate the robustness of this model and its solution, such as manipulating the input data or environment to see how the model’s solution is affected (this is called sensitivity analysis). Questions to ask yourself when writing this section:
+
 - _Is the final model reasonable and aligning with solution expectations? Are the final parameters of the model appropriate?_
 - _Has the final model been tested with various inputs to evaluate whether the model generalizes well to unseen data?_
 - _Is the model robust enough for the problem? Do small perturbations (changes) in training data or the input space greatly affect the results?_
@@ -132,7 +132,11 @@ In this section, you will need to provide discussion as to how one aspect of the
 - _If you used your final solution as the new benchmark, do you think an even better solution exists?_
 
 -----------
+[1] https://www.thekitchn.com/whats-the-difference-between-spring-onions-scallions-and-green-onions-word-of-mouth-217111 
+[2] https://www.chefsteps.com/ingredients/black-pepper 
 [3] https://www.kaggle.com/c/whats-cooking
+[4] https://www.thespruceeats.com/egg-size-conversions-1328750
+[5] https://www.thekitchn.com/whats-the-difference-between-olive-oil-and-extra-virgin-olive-oil-word-of-mouth-218767
 
 **Before submitting, ask yourself. . .**
 
