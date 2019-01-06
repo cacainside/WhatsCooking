@@ -1,37 +1,53 @@
 # Machine Learning Engineer Nanodegree
 ## Capstone Project
-Joe Udacity  
-December 31st, 2050
+Man-Fong Cheng  
+January 6th, 2019
 
 ## I. Definition
 _(approx. 1-2 pages)_
 
 ### Project Overview
-In this section, look to provide a high-level overview of the project in layman’s terms. Questions to ask yourself when writing this section:
-- _Has an overview of the project been provided, such as the problem domain, project origin, and related datasets or input data?_
-- _Has enough background information been given so that an uninformed reader would understand the problem domain and following problem statement?_
+
+This project is about Kaggle's What's Cooking[3], which is a interesting topic to use recipe ingredients to categorize the cuisine. I choose this topic because I love eating cuisine from different countries, so I would be extremely happy to work with data with recipe information.
 
 ### Problem Statement
-In this section, you will want to clearly define the problem that you are trying to solve, including the strategy (outline of tasks) you will use to achieve the desired solution. You should also thoroughly discuss what the intended solution will be for this problem. Questions to ask yourself when writing this section:
-- _Is the problem statement clearly defined? Will the reader understand what you are expecting to solve?_
-- _Have you thoroughly discussed how you will attempt to solve the problem?_
-- _Is an anticipated solution clearly defined? Will the reader understand what results you are looking for?_
+It is a supervised multi-class classification problem because the result should categorize the recipe into cuisine type, such as Chinese cuisine, Japanese cuisine or Italian cuisine, etc. The input data is list of ingredients for making cuisine,  which is non-structured text format. However, the ingredients are not sentences and steps, they are just word, which make it easier to pre-process. For the solution algorithm, I choose XGBoost [1].
 
 ### Metrics
-In this section, you will need to clearly define the metrics or calculations you will use to measure performance of a model or result in your project. These calculations and metrics should be justified based on the characteristics of the problem and problem domain. Questions to ask yourself when writing this section:
-- _Are the metrics you’ve chosen to measure the performance of your models clearly discussed and defined?_
-- _Have you provided reasonable justification for the metrics chosen based on the problem and solution?_
+I would use accuracy to evaluate the model.
 
 
 ## II. Analysis
 _(approx. 2-4 pages)_
 
 ### Data Exploration
-In this section, you will be expected to analyze the data you are using for the problem. This data can either be in the form of a dataset (or datasets), input data (or input files), or even an environment. The type of data should be thoroughly described and, if possible, have basic statistics and information presented (such as discussion of input features or defining characteristics about the input or environment). Any abnormalities or interesting qualities about the data that may need to be addressed have been identified (such as features that need to be transformed or the possibility of outliers). Questions to ask yourself when writing this section:
-- _If a dataset is present for this problem, have you thoroughly discussed certain features about the dataset? Has a data sample been provided to the reader?_
-- _If a dataset is present for this problem, are statistics about the dataset calculated and reported? Have any relevant results from this calculation been discussed?_
-- _If a dataset is **not** present for this problem, has discussion been made about the input space or input data for your problem?_
-- _Are there any abnormalities or characteristics about the input space or dataset that need to be addressed? (categorical variables, missing values, outliers, etc.)_
+
+-  There are train data-set and test data-set. And it is JSON format. 
+-  Data  includes **39774 recipes ids** with list of ingredients and type of cuisine, and I use train_test_split, split 20% as testing data. Because there's no label at test data from Kaggle, That's why I chose to split train data to test data.
+-  Here are an example of train data.
+e.g. 
+ {  
+ "**id**": 24717,  
+ "**cuisine**": "indian",  
+ "**ingredients**": [  
+     "tumeric",  
+     "vegetable stock",  
+     "tomatoes",  
+     "garam masala",  
+     "naan",  
+     "red lentils",  
+     "red chili peppers",  
+     "onions",  
+     "spinach",  
+     "sweet potatoes"  
+ ]  
+ },
+ 
+The input features include cuisine, id and ingredients. Let's discuss them below:
+- id: It's discrete integer, and it is meaningless to our project.
+- cuisine: There are **20 unique types of cuisines** in the data set, which means we are going to have 20 classes. There's no missing cuisine in this dataset. The highest frequncy cuisine in our dataset is italian, which includes 7838 cuisine. And we need to do one hot encoding to make cuisine appear in 0 and 1 in each type.
+- Ingredients: There are ** 39774 cuisines**, and each of them have their own ingredients. There are some ingredients of cuisine are not unique. For 39774 cuisines we got 39674 unique ingredients. However, I don't think it matters, so cuisine use have same ingredients, but with different process step and ingredient's quatity make them different food. So I will not deal with the uniqueness of ingredients. There's no missing ingredients in this dataset, every cuisine has its own ingredients. However, as above mentioned in cuisine feature, ingredients also need to use one hot encoding to transfer data into 0 and 1 for further process.
+
 
 ### Exploratory Visualization
 In this section, you will need to provide some form of visualization that summarizes or extracts a relevant characteristic or feature about the data. The visualization should adequately support the data being used. Discuss why this visualization was chosen and how it is relevant. Questions to ask yourself when writing this section:
@@ -113,6 +129,7 @@ In this section, you will need to provide discussion as to how one aspect of the
 - _If you used your final solution as the new benchmark, do you think an even better solution exists?_
 
 -----------
+[3] https://www.kaggle.com/c/whats-cooking
 
 **Before submitting, ask yourself. . .**
 
